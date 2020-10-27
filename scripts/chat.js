@@ -26,6 +26,8 @@ class Chatroom {
     }
     getChats(callback) {
         this.chats
+            .where('room', '==', this.room) // get docuents from a specific collection where a certain condition is true // 1st property name we want to access
+            .orderBy('created_at') // what property you want to order by // error but click on link and index in firebase 
             .onSnapshot(snapshot => {
                 snapshot.docChanges().forEach(change => {
                     if (change.type === 'added') {
@@ -37,7 +39,7 @@ class Chatroom {
     }
 }
 
-const chatroom = new Chatroom('gaming', 'sam')
+const chatroom = new Chatroom('general', 'sam')
 
 chatroom.getChats((data) => { // this gets invoked from the callback above
     console.log(data);
